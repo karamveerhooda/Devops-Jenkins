@@ -1,4 +1,4 @@
-# This is a test change to trigger GitHub Actions
+# This is a test change to trigger GitHub Action
 
 resource "aws_security_group" "allow_jenkins" {
   name        = "allow_jenkins"
