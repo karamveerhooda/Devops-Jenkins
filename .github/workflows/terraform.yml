@@ -12,7 +12,8 @@ jobs:
   terraform:
     name: Run Terraform
     runs-on: ubuntu-latest
-
+    env:
+        TF_VAR_private_key: ${{ secrets.EC2_PRIVATE_KEY }}
     steps:
     - name: Checkout code
       uses: actions/checkout@v2

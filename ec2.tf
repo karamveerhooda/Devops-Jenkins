@@ -77,11 +77,16 @@ resource "aws_instance" "jenkins_server" {
     connection {
       type        = "ssh"
       user        = "ec2-user"
-      private_key = file("C:/Users/khooda/Downloads/EC2-Key.pem") 
+      private_key = var.private_key
       host        = self.public_ip
       timeout     = "10m"
     }
   }
+}
+variable "private_key" {
+  description = "The private key for SSH access"
+  type        = string
+  sensitive   = true
 }
 
 output "instance_ip" {
