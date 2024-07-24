@@ -1,6 +1,6 @@
 resource "aws_security_group" "allow_jenkins" {
   name        = "allow_jenkins"
-  description = "Allow Jenkins traffic"
+  description = "Allow Jenkins traffic using ingress and outgress"
 
   ingress {
     from_port   = 22
