@@ -1,3 +1,5 @@
+# This is a test change to trigger GitHub Actions
+
 resource "aws_security_group" "allow_jenkins" {
   name        = "allow_jenkins"
   description = "Allow Jenkins traffic using ingress and outgress"
