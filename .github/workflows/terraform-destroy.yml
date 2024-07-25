@@ -1,20 +1,21 @@
-name: Terraform
+name: Terraform Destroy
 
 on:
-  push:
-    branches:
-      - master  # or your preferred branch
-  pull_request:
-    branches:
-      - master  # or your preferred branch
-
+  workflow_dispatch:
+    inputs:
+      destroy_confirm:
+        description: 'Type "yes" to confirm destruction'
+        required: true
+        default: 'no'
 
 jobs:
   terraform:
-    name: Run Terraform
+    name: Destroy Terraform Infrastructure
     runs-on: ubuntu-latest
+
     env:
-        TF_VAR_private_key: ${{ secrets.EC2_PRIVATE_KEY }}
+      TF_VAR_private_key: ${{ secrets.EC2_PRIVATE_KEY }}
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -34,12 +35,13 @@ jobs:
     - name: Terraform Init
       run: terraform init
 
-    - name: Terraform Plan
-      run: terraform plan -out=plan.tfplan
+    - name: Terraform Plan Destroy
+      run: terraform plan -destroy -out=destroy.tfplan
 
-    - name: Terraform Apply
-      run: terraform apply -auto-approve plan.tfplan
+    - name: Terraform Destroy
+      if: github.event.inputs.destroy_confirm == 'yes'
+      run: terraform apply -auto-approve destroy.tfplan
 
-    - name: Post Apply Cleanup
+    - name: Post Destroy Cleanup
       if: always()
-      run: rm -rf plan.tfplan  
+      run: rm -rf destroy.tfplan
