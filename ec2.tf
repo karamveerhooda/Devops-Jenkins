@@ -45,7 +45,7 @@ resource "aws_instance" "jenkins_server" {
     Name = "JenkinsServer"
   }
 
-  key_name = "EC2-Key"
+  key_name = "EC2-Key-kk"
 
  /* provisioner "file" {
     source      = "C:/Users/khooda/Downloads/EC2-Key.pem"
